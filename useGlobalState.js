@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 
 let globalState = {};
-
 let listeners = {};
 
-export const useGlobalState = (scope = "GLOBAL", initState) => {
+export const useGlobalState = (scope, initState) => {
   const [state, setState] = useState(
     globalState[scope]
       ? { ...globalState[scope], ...initState }
@@ -35,8 +34,6 @@ export const useGlobalState = (scope = "GLOBAL", initState) => {
     [state]
   );
 
-  console.log();
-
   useEffect(() => {
     listeners[scope] = listeners[scope]
       ? [...listeners[scope], setState]
@@ -48,6 +45,9 @@ export const useGlobalState = (scope = "GLOBAL", initState) => {
 
   return [globalState[scope], setStates, dispatch];
 };
+
+export { globalState, listeners };
+
 
 
 import {
